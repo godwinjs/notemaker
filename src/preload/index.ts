@@ -1,6 +1,18 @@
 import { contextBridge } from 'electron'
 import { electronAPI } from '@electron-toolkit/preload'
 
+if ( !process.contextIsolated ) {
+  throw new Error("ContextIsolation must be enabled in the browser window (BrowserWindow)")
+}
+
+try {
+  contextBridge.exposeInMainWorld("context", {
+    //add preload function here
+  })
+} catch (e) {
+
+}
+
 // Custom APIs for renderer
 const api = {}
 
